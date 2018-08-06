@@ -12,6 +12,7 @@ class Bug(models.Model):
     solution = models.CharField(max_length=250)
 
 class Feature(models.Model):
+
     feature_name = models.CharField(max_length=250)
 
 

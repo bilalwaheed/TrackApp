@@ -19,6 +19,9 @@ class FeatureAdmin(admin.ModelAdmin):
 
 
 
+
+
+
 admin.site.register(TicketTracking,TicketTrackingAdmin)
 admin.site.register(Bug,BugAdmin)
 admin.site.register(Feature)
