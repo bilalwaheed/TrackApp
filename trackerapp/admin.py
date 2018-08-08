@@ -15,7 +15,7 @@ class BugAdmin(admin.ModelAdmin):
 
 class FeatureAdmin(admin.ModelAdmin):
     model = Feature
-    list_display = ('feature_name')
+    list_display = ('feature_name', )
 
 
 
@@ -24,7 +24,7 @@ class FeatureAdmin(admin.ModelAdmin):
 
 admin.site.register(TicketTracking,TicketTrackingAdmin)
 admin.site.register(Bug,BugAdmin)
-admin.site.register(Feature)
+admin.site.register(Feature, FeatureAdmin)
 
 
 

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+
+<head>
+
+</head>
+
+<body>
+{% block content %}
+    <section id="subintro">
+
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h3><strong>Create a Feature</strong></h3>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <section id="maincontent">
+        <div class="container">
+            <div class="row">
+
+                                <div class="span4">
+                    <aside>
+                        <div class="widget">
+                            <h4>Info</h4>
+                            <ul>
+                                <li><label><strong>Featurename : </strong></label>
+                                    <p>
+                                        Enter Feature Name.
+                                    </p>
+
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+                                <div class="span8">
+                    <div id="sendmessage">Fill the form below to create feature!</div>
+                    <div id="errormessage"></div>
+                    <form action="" method="post" role="form" class="ticketcreationForm">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="span8 form-group" style="    background-color: #f5f5f5;    margin-bottom: 10px;">
+                                <input style="background-color: #f5f5f5;" type="text" name="feature_name" class="form-control" id="ticketname" placeholder="Feature Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+                            </div>
+
+
+                            <div class="span8 form-group">
+                                <div class="validation"></div>
+                                <div class="text-center">
+                                    <button class="btn btn-color btn-rounded" type="submit">Create Ticket</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock content %}
+</body>
+
+</html>

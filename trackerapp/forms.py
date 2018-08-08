@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from trackerapp.models import TicketTracking, Feature
+
 
 class RegisterForm(UserCreationForm):
     username = UsernameField(max_length=254, widget=forms.TextInput(
@@ -69,3 +71,28 @@ class SignInForm(AuthenticationForm):
                 "This account is inactive.",
                 code='inactive',
             )
+
+
+class TicketCreationForm(forms.ModelForm):
+    ticket_name = forms.CharField(max_length=254, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'ticket_name', 'autofocus': True, }))
+
+    ticket_comment = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ticket_comment'})),
+                                 max_length=30, required=False)
+
+    ticket_status = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ticket_status'})),
+                                max_length=30, required=False)
+
+    class Meta:
+        model = TicketTracking
+        fields = ('ticket_name', 'ticket_comment', 'ticket_status')
+
+class FeatureCreationForm(forms.ModelForm):
+    feature_name = forms.CharField(max_length=254, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Feature_name', 'autofocus': True, }))
+
+
+    class Meta:
+        model = Feature
+        fields = ('feature_name',)
+

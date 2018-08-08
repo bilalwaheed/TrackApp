@@ -10,94 +10,101 @@
 <body>
 {% block content %}
 
-  <section id="intro">
+    <section id="intro">
 
-    <div class="container">
-      <div class="row">
-        <div class="span6">
-          <h2><strong>What's <span class="highlight primary">SI Issue Tracker?</span></strong></h2>
-          <p class="lead">
-            SI Issue Tracker is a simple but powerful issue tracker app created as part of a Python/Django course project. Users of the app will be able to, amongst other things, create an account and manage that account, and also submit issues, track issues, scale issues, submit features, and track those features, etc. Users Can:
-          </p>
-          <ul class="list list-ok strong bigger">
-            <li>Get Set Up Within Minutes</li>
-            <li>View Statistics</li>
-            <li>Upscale or Downscale Issues</li>
-			<li>Upscale or Downscale Features</li>
-          </ul>
+        <div class="container">
+            <div class="row">
+                <div class="span6">
+                    <h2><strong>What's <span class="highlight primary">SI Issue Tracker?</span></strong></h2>
+                    <p class="lead">
+                        SI Issue Tracker is a simple but powerful issue tracker app created as part of a Python/Django course project. Users of the app will be able to, amongst other things, create an account and manage that account, and also submit issues, track issues, scale issues, submit features, and track those features, etc. Users Can:
+                    </p>
+                    <ul class="list list-ok strong bigger">
+                        <li>Get Set Up Within Minutes</li>
+                        <li>View Statistics</li>
+                        <li>Upscale or Downscale Issues</li>
+                        <li>Upscale or Downscale Features</li>
+                    </ul>
 
-        </div>
-        <div class="span6">
+                </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li style="text-align: center;" class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="span6">
 
-          <div class="group section-wrap upper" id="upper">
-            <div class="section-2 group">
-              <ul id="images" class="rs-slider">
-                <li class="group">
-                  <a href="#">
-				            <img src="static/images/slides/refine/slide1.png" alt="" />				        </a>                </li>
-                <li class="group">
-                  <a href="#" class="slide-parent">
-				            <img src="static/images/slides/refine/slide2.png" alt=""/>		          </a>                </li>
-                <li class="group">
-                  <img src="static/images/slides/refine/slide3.png" alt="" />                </li>
-              </ul>
+                    <div class="group section-wrap upper" id="upper">
+                        <div class="section-2 group">
+                            <ul id="images" class="rs-slider">
+                                <li class="group">
+                                    <a href="#">
+                                        <img src="static/images/slides/refine/slide1.png" alt="" />				        </a>                </li>
+                                <li class="group">
+                                    <a href="#" class="slide-parent">
+                                        <img src="static/images/slides/refine/slide2.png" alt=""/>		          </a>                </li>
+                                <li class="group">
+                                    <img src="static/images/slides/refine/slide3.png" alt="" />                </li>
+                            </ul>
+                        </div>
+                        <!-- /.section-2 -->
+                    </div>
+
+                </div>
             </div>
-            <!-- /.section-2 -->
-          </div>
-
         </div>
-      </div>
-    </div>
 
-  </section>
-  <section id="maincontent">
-    <div class="container">
-      <div class="row">
-        <div class="span4">
-          <div class="features">
-            <div class="icon">
-              <i class="icon-bg-light icon-circled icon-code icon-5x active"></i>            </div>
-            <div class="features_content">
-              <h3>Ticket Tracking</h3>
-              <p class="left">
-                You will be able to create a ticket, edit the ticket, comment on the ticket, and see the status of the ticket.            </p>
+    </section>
+    <section id="maincontent">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <div class="features">
+                        <div class="icon">
+                            <i class="icon-bg-light icon-circled icon-code icon-5x active"></i>            </div>
+                        <div class="features_content">
+                            <h3>Ticket Tracking</h3>
+                            <p class="left">
+                                You will be able to create a ticket, edit the ticket, comment on the ticket, and see the status of the ticket.            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="features">
+                        <div class="icon">
+                            <i class="icon-bg-dark icon-circled icon-bug icon-5x"></i>            </div>
+                        <div class="features_content">
+                            <h3>Bug Fixes</h3>
+                            <p class="left">
+                                You will be able to submit issues relating to bugs and have them fixed for free anytime.              </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="features">
+                        <div class="icon">
+                            <i class="icon-bg-dark icon-circled icon-android icon-5x"></i>            </div>
+                        <div class="features_content">
+                            <h3>Features</h3>
+                            <p class="left">
+                                Are you interested in certain features added? Additional features can be added for a fee. </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </div>
-        <div class="span4">
-          <div class="features">
-            <div class="icon">
-              <i class="icon-bg-dark icon-circled icon-bug icon-5x"></i>            </div>
-            <div class="features_content">
-              <h3>Bug Fixes</h3>
-              <p class="left">
-                You will be able to submit issues relating to bugs and have them fixed for free anytime.              </p>
+
+            <!-- blank divider -->
+            <div class="row">
+                <div class="span12">
+                    <div class="blank10"></div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="span4">
-          <div class="features">
-            <div class="icon">
-              <i class="icon-bg-dark icon-circled icon-android icon-5x"></i>            </div>
-            <div class="features_content">
-              <h3>Features</h3>
-              <p class="left">
-                Are you interested in certain features added? Additional features can be added for a fee. </p>
-            </div>
-          </div>
-        </div>
 
-      </div>
-
-      <!-- blank divider -->
-      <div class="row">
-        <div class="span12">
-          <div class="blank10"></div>
         </div>
-      </div>
-
-    </div>
-  </section>
+    </section>
 
 {% endblock content %}
 

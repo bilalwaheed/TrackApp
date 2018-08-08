@@ -8,87 +8,167 @@
 </head>
 
 <body>
-  {% block content %}
-  <section id="subintro">
+{% block content %}
+    <section id="subintro">
 
-    <div class="container">
-      <div class="row">
-        <div class="span12">
-          <h3><strong>Dashboard - Home</strong></h3>
-        </div>
-      </div>
-    </div>
-
-  </section>  
-  <section id="maincontent">
-    <div class="container">
-      <div class="row">
-        <div class="span4">
-          <aside>
-            <div class="widget">
-              <h4>Navigation Menu</h4>
-              <ul>
-                <li>
-					<label><strong><a href="edit.html">Edit Profile</a></strong></label>
-                </li>
-                <li>
-					<label><strong><a href="create_issue.html">Create Ticket</a></strong></label>
-                </li>				
-                <li>
-					<label><strong><a href="edit_ticket.html">Edit Ticket</a></strong></label>
-                </li>				
-                <li>
-					<label><strong><a href="feature_request.html">Feature Request</a></strong></label>
-                </li>
-                <li>
-					<label><strong><a href="edit_features.html">Edit Features</a></strong></label>
-                </li>
-                <li>
-					<label><strong><a href="logout.html">Log Out</a></strong></label>
-                </li>				
-              </ul>
-            </div>
-          </aside>
-        </div>
-		
-	
-			
-        <div class="span8">
-          <aside>		
-          <div id="errormessage"></div>
+        <div class="container">
             <div class="row">
-              <div class="span8 form-group">
-                <table width="100%" border="0" cellspacing="5" cellpadding="5">
-  <tr>
-    <th scope="row"><div align="left">First name</div></th>
-    <td >James</td>
-  </tr>
-  <tr>
-    <th scope="row"><div align="left">Surname</div></th>
-    <td>David</td>
-  </tr>
-  <tr>
-    <th scope="row"><div align="left">Email</div></th>
-    <td>eamail@david.com</td>
-  </tr>
-  <tr>
-    <th scope="row"><div align="left">Country</div></th>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <th scope="row"><div align="left"></div></th>
-    <td>&nbsp;</td>
-  </tr>
-</table>
-
-              </div>
-
+                <div class="span12">
+                    <h3><strong>Dashboard - Home</strong></h3>
+                </div>
             </div>
-          </aside>		  
         </div>
-      </div>
-    </div>
-  </section>
+
+    </section>
+    <section id="maincontent">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <aside>
+                        <div class="widget">
+                            <h4>Navigation Menu</h4>
+                            <ul>
+                                <li>
+                                    <label><strong><a href="#">Edit Profile</a></strong></label>
+                                </li>
+                                <li>
+                                    <label><strong><a href="{% url 'add_ticket' %}">Create Ticket</a></strong></label>
+                                </li>
+                                {#                <li>#}
+                                {#					<label><strong><a href="edit_ticket.html">Edit Ticket</a></strong></label>#}
+                                {#                </li>				#}
+                                <li>
+                                    <label><strong><a href="{% url 'add_feature' %}">Feature
+                                        Request</a></strong></label>
+                                </li>
+                                {#                <li>#}
+                                {#					<label><strong><a href="edit_features.html">Edit Features</a></strong></label>#}
+                                {#                </li>#}
+                                <li>
+                                    <label><strong><a href="#">Log Out</a></strong></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+
+
+                <div class="span8">
+                    <aside>
+                        <div id="errormessage"></div>
+                        <div class="row">
+                            <div class="span8 form-group">
+                                <table width="100%" border="0" cellspacing="5" cellpadding="5">
+                                    <tr>
+                                        <th scope="row">
+                                            <div align="left">First name</div>
+                                        </th>
+                                        <td>James</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <div align="left">Surname</div>
+                                        </th>
+                                        <td>David</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <div align="left">Email</div>
+                                        </th>
+                                        <td>eamail@david.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <div align="left">Country</div>
+                                        </th>
+                                        <td>UK</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <div align="left"></div>
+                                        </th>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <th>Ticket Name</th>
+
+                                        <th>Ticket Comments</th>
+
+                                        <th>Ticket Status</th>
+                                    </tr>
+                                    {% for item in all_tickets %}
+                                        <tr>
+                                            <td>{{ item.ticket_name }} </td>
+
+                                            <td>{{ item.ticket_comment }}</td>
+
+                                            <td>{{ item.ticket_status }}</td>
+
+                                            {#        <td><button type="button" class="btn btn-danger" id="{{ item.id }}">Edit</button></td>#}
+                                            <td><a class="btn btn-success" data-toggle="modal"
+                                                   data-target=".edit_segment-{{ item.id }}" name="load-button"
+                                                   href="#">Edit</a></td>
+
+                                            <div class="modal fade edit_segment-{{ item.id }}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="Tag-Label" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="modal-close"
+                                                                    data-dismiss="modal" aria-label="Close">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                            <h4 class="modal-title" id="Subscriber-Label">Edit Ticket
+                                                                Tracking</h4>
+                                                        </div>
+                                                        <form action="{% url 'edit_ticket' item.id %}" method="post" action="">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                <label>Ticket Name</label>
+                                                                <input style="    background-color: #e6dede;"
+                                                                       type="text" name='ticket_name' id="segment_title"
+                                                                       value='{{ item.ticket_name }}'
+                                                                       class="form-control" maxlength="50">
+                                                                <label>Ticket Comment</label>
+                                                                <input style="    background-color: #e6dede;"
+                                                                       type="text" name='ticket_comment'
+                                                                       id="segment_title"
+                                                                       value='{{ item.ticket_comment }}'
+                                                                       class="form-control" maxlength="50">
+                                                                <label>Ticket Status</label>
+                                                                <input style="    background-color: #e6dede;"
+                                                                       type="text" name='ticket_status'
+                                                                       id="segment_title"
+                                                                       value='{{ item.ticket_status }}'
+                                                                       class="form-control" maxlength="50">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button class="btn btn-primary btn-sm" type="submit">save
+                                                            </button>
+                                                                </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
 
 {% endblock content %}
 </body>
