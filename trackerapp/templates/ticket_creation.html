@@ -25,7 +25,7 @@
         <div class="container">
             <div class="row">
 
-                                <div class="span4">
+                <div class="span4">
                     <aside>
                         <div class="widget">
                             <h4>Info</h4>
@@ -50,27 +50,23 @@
                         </div>
                     </aside>
                 </div>
-                                <div class="span8">
+                <div class="span8">
                     <div id="sendmessage">Fill the form below to create ticket!</div>
                     <div id="errormessage"></div>
-                    <form  method="post" role="form" class="ticketcreationForm">
+                    <form method="post" role="form" class="ticketcreationForm">
                         {% csrf_token %}
+                        {{ form.errors }}
                         <div class="row">
-                            <div class="span8 form-group" style="    background-color: #f5f5f5;    margin-bottom: 10px;">
-                                <input style="background-color: #f5f5f5;" type="text" name="ticket_name" class="form-control" id="ticketname" placeholder="Ticket Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                            <div class="span8 form-group">
+                                {{ form.ticket_name }}
                             </div>
 
-                            <div class="span8 form-group" style="    background-color: #f5f5f5;    margin-bottom: 10px;">
-                                <input style="    background-color: #f5f5f5;" type="text" name="ticket_comment" class="form-control" id="ticketcomment" placeholder="Ticket Comment" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                            <div class="span8 form-group">
+                                {{ form.ticket_comment }}
                             </div>
-                            <div class="span8 form-group" style="    background-color: #f5f5f5;    margin-bottom: 10px;">
-                                <input style="    background-color: #f5f5f5;" type="text" name="ticket_status" class="form-control" id="ticketstatus" placeholder="Ticket Status" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                <div class="validation"></div>
+                            <div class="span8 form-group">
+                                {{ form.ticket_status }}
                             </div>
-
-
 
                             <div class="span8 form-group">
                                 <div class="validation"></div>
@@ -81,7 +77,6 @@
                         </div>
                     </form>
                 </div>
-
 
 
             </div>

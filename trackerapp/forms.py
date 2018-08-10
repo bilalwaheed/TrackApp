@@ -21,10 +21,11 @@ class RegisterForm(UserCreationForm):
                              max_length=254)
 
     password1 = forms.CharField(label=_("Password"),
-                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
-                               )
+                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+                                )
     password2 = forms.CharField(label=_("Confirm Password"),
-                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}))
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}))
 
     class Meta:
         model = User
@@ -75,39 +76,43 @@ class SignInForm(AuthenticationForm):
 
 class TicketCreationForm(forms.ModelForm):
     ticket_name = forms.CharField(max_length=254, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'ticket_name', 'autofocus': True, }))
+        attrs={'class': 'form-control field-common', 'placeholder': 'Ticket Name', 'autofocus': True, }))
 
-    ticket_comment = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ticket_comment'})),
-                                 max_length=30, required=False)
+    ticket_comment = forms.CharField(widget=(
+        forms.TextInput(attrs={'class': 'form-control field-common', 'type': 'text', 'placeholder': 'Ticket Comment'})),
+        max_length=30, required=False)
 
-    ticket_status = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ticket_status'})),
-                                max_length=30, required=False)
+    ticket_status = forms.CharField(widget=(forms.Select(choices=TicketTracking.STATUS,
+                                                         attrs={'class': 'form-control field-common',
+                                                                'placeholder': 'Ticket Status'})),
+                                    max_length=30, required=False)
 
     class Meta:
         model = TicketTracking
-        fields = ('ticket_name', 'ticket_comment', 'ticket_status')
+        fields = ('ticket_name', 'ticket_comment', 'ticket_status', 'user')
+
 
 class FeatureCreationForm(forms.ModelForm):
     feature_name = forms.CharField(max_length=254, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Feature_name', 'autofocus': True, }))
-
+        attrs={'class': 'form-control field-common', 'placeholder': 'Feature Name', 'autofocus': True, }))
 
     class Meta:
         model = Feature
-        fields = ('feature_name',)
+        fields = ('feature_name', 'user')
 
 
 class BugCreationForm(forms.ModelForm):
     bug_name = forms.CharField(max_length=254, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'bug_name', 'autofocus': True, }))
+        attrs={'class': 'form-control field-common', 'placeholder': 'Bug Name', 'autofocus': True, }))
 
-    description = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'description'})),
-                                 max_length=30, required=False)
+    description = forms.CharField(
+        widget=(forms.TextInput(attrs={'class': 'form-control field-common', 'placeholder': 'Description'})),
+        max_length=30, required=False)
 
-    solution = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'solution'})),
-                                max_length=30, required=False)
+    solution = forms.CharField(
+        widget=(forms.TextInput(attrs={'class': 'form-control field-common', 'placeholder': 'Solution'})),
+        max_length=30, required=False)
 
     class Meta:
         model = Bug
-        fields = ('bug_name', 'description', 'solution')
-
+        fields = ('bug_name', 'description', 'solution', 'user')
