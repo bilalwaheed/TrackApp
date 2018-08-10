@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from trackerapp.models import TicketTracking, Feature
+from trackerapp.models import TicketTracking, Feature, Bug
 
 
 class RegisterForm(UserCreationForm):
@@ -95,4 +95,19 @@ class FeatureCreationForm(forms.ModelForm):
     class Meta:
         model = Feature
         fields = ('feature_name',)
+
+
+class BugCreationForm(forms.ModelForm):
+    bug_name = forms.CharField(max_length=254, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'bug_name', 'autofocus': True, }))
+
+    description = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'description'})),
+                                 max_length=30, required=False)
+
+    solution = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'solution'})),
+                                max_length=30, required=False)
+
+    class Meta:
+        model = Bug
+        fields = ('bug_name', 'description', 'solution')
 

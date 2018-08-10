@@ -10,8 +10,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views import generic
 
-from trackerapp.forms import RegisterForm, SignInForm, TicketCreationForm, FeatureCreationForm
-from trackerapp.models import TicketTracking
+from trackerapp.forms import RegisterForm, SignInForm, TicketCreationForm, FeatureCreationForm, BugCreationForm
+from trackerapp.models import TicketTracking, Feature, Bug
 
 
 class IndexView(LoginRequiredMixin, generic.TemplateView):
@@ -23,7 +23,9 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         all_tickets = TicketTracking.objects.all()
-        return render(request, self.template_name, {'all_tickets':all_tickets})
+        all_features = Feature.objects.all()
+        all_bugs = Bug.objects.all()
+        return render(request, self.template_name, {'all_tickets':all_tickets,'all_features':all_features,'all_bugs':all_bugs})
 
 class LoginView(generic.TemplateView):
     template_name = 'login.html'
@@ -67,14 +69,32 @@ class TicketCreationView(generic.TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            import pdb;pdb.set_trace()
+            # import pdb;pdb.set_trace()
             form = TicketCreationForm(request.POST)
             if form.is_valid():
+                messages.success(request, 'Ticket Created successfully!', extra_tags='alert')
                 form.save()
-                return redirect('index')
+                return redirect('ticket')
         else:
             form = TicketCreationForm()
         return render(request, self.template_name, {'form': form})
+
+class BugCreationView(generic.TemplateView):
+    template_name = 'Bug_request.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.method=='POST':
+            form = BugCreationForm(request.POST)
+            if form.is_valid():
+                messages.success(request, 'Bug created successfully!', extra_tags='alert')
+                form.save()
+                return redirect('bug')
+        else:
+            form = BugCreationForm()
+        return render(request, self.template_name, {'form': form})
+
+
+
 
 class FeatureCreationView(generic.TemplateView):
     template_name = 'feature_request.html'
@@ -84,9 +104,10 @@ class FeatureCreationView(generic.TemplateView):
             # import pdb;pdb.set_trace()
             form = FeatureCreationForm(request.POST)
             if form.is_valid():
+                messages.success(request, 'Feature Created successfully!', extra_tags='alert')
                 form.save()
 
-                return redirect('index')
+                return redirect('feature')
         else:
             form = FeatureCreationForm()
         return render(request, self.template_name, {'form': form})
@@ -101,7 +122,56 @@ class TicketEditView(generic.TemplateView):
         ticket.ticket_comment = self.request.POST.get('ticket_comment')
         ticket.ticket_status = self.request.POST.get('ticket_status')
         ticket.save()
-        return redirect(reverse('dashboard'))
+        messages.success(request, 'Ticket Edit successfully!', extra_tags='alert')
+
+        return redirect(reverse('ticket'))
+
+class FeatureEditView(generic.TemplateView):
+    template_name = 'feature_request.html'
+
+    def post(self,request, **kwargs):
+        feature_id = kwargs.get('feature_id')
+        feature = Feature.objects.filter(id=feature_id).first()
+        feature.feature_name = self.request.POST.get('feature_name')
+        feature.save()
+        messages.success(request, 'Feature Edit successfully!', extra_tags='alert')
+        return redirect(reverse('feature'))
+
+class BugEditView(generic.TemplateView):
+    template_name = 'Bug_request.html'
+
+    def post(self,request, **kwargs):
+        bug_id = kwargs.get('bug_id')
+        bug = Bug.objects.filter(id=bug_id).first()
+        bug.bug_name = self.request.POST.get('bug_name')
+        bug.description = self.request.POST.get('description')
+        bug.solution = self.request.POST.get('solution')
+        bug.save()
+        messages.success(request, 'Bug Edit successfully!', extra_tags='alert')
+        return redirect(reverse('bug'))
+
+class TicketView(generic.TemplateView):
+    template_name = 'ticket.html'
+
+    def get(self, request, *args, **kwargs):
+        all_tickets = TicketTracking.objects.all()
+        return render(request, self.template_name, {'all_tickets':all_tickets})
 
 
+
+class FeatureView(generic.TemplateView):
+    template_name = 'feature.html'
+
+    def get(self, request, *args, **kwargs):
+        all_features = Feature.objects.all()
+        return render(request, self.template_name, {'all_features':all_features})
+
+
+
+class BugView(generic.TemplateView):
+    template_name = 'bugs.html'
+
+    def get(self, request, *args, **kwargs):
+        all_bugs = Bug.objects.all()
+        return render(request, self.template_name, {'all_bugs':all_bugs})
 
