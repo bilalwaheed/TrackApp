@@ -106,8 +106,8 @@ class BugCreationForm(forms.ModelForm):
         attrs={'class': 'form-control field-common', 'placeholder': 'Bug Name', 'autofocus': True, }))
 
     description = forms.CharField(
-        widget=(forms.TextInput(attrs={'class': 'form-control field-common', 'placeholder': 'Description'})),
-        max_length=30, required=False)
+        widget=(forms.Textarea(attrs={'class': 'form-control field-common', 'placeholder': 'Description'})),
+    )
 
     solution = forms.CharField(
         widget=(forms.TextInput(attrs={'class': 'form-control field-common', 'placeholder': 'Solution'})),

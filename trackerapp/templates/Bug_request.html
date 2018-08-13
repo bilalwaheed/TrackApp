@@ -54,19 +54,37 @@
                     <div id="sendmessage">Fill the form below to create Bug!</div>
                     <div id="errormessage"></div>
                     <form method="post" role="form" class="bugcreationForm">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
                         {% csrf_token %}
                         {{ form.errors }}
                         <div class="row">
                             <div class="span8 form-group">
+                                {% for error in form.bug_name.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
                                 {{ form.bug_name }}
                                 <div class="validation"></div>
                             </div>
 
                             <div class="span8 form-group">
+                                {% for error in form.description.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
                                 {{ form.description }}
                                 <div class="validation"></div>
                             </div>
                             <div class="span8 form-group">
+                                {% for error in form.solution.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
                                 {{ form.solution }}
                                 <div class="validation"></div>
                             </div>
@@ -86,10 +104,6 @@
             </div>
         </div>
     </section>
-
-
-
-
 {% endblock content %}
 </body>
 

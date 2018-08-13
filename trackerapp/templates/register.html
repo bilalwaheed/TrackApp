@@ -67,36 +67,68 @@
                 </div>
 
 
-
                 <div class="span8">
                     <div id="sendmessage">Fill the form below to register!</div>
                     <div id="errormessage"></div>
                     <form action="" method="post" role="form" class="contactForm">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
                         {% csrf_token %}
                         <div class="row">
                             <div class="span8 form-group">
-                                <input type="text" name="username" class="form-control" id="username" placeholder="Username" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                {% for error in form.username.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.username }}
                                 <div class="validation"></div>
                             </div>
 
                             <div class="span8 form-group">
-                                <input type="text" name="first_name" class="form-control" id="firstname" placeholder="First name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                {% for error in form.first_name.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.first_name }}
                                 <div class="validation"></div>
                             </div>
                             <div class="span8 form-group">
-                                <input type="text" name="last_name" class="form-control" id="lasttname" placeholder="Last name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                {% for error in form.last_name.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.last_name }}
                                 <div class="validation"></div>
                             </div>
                             <div class="span8 form-group">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                {% for error in form.email.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.email }}
                                 <div class="validation"></div>
                             </div>
                             <div class="span8 form-group">
-                                <input type="password" name="password1" class="form-control" id="password" placeholder="Password" data-rule="minlen:4" data-msg="Please enter a valid password" />
+                                {% for error in form.password1.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.password1 }}
                                 <div class="validation"></div>
                             </div>
                             <div class="span8 form-group">
-                                <input type="password" name="password2" class="form-control" id="password1" placeholder="Confirm Password" data-rule="minlen:4" data-msg="Please enter a valid password and should match to above password" />
+                                {% for error in form.password2.errors %}
+                                    <tr>
+                                        <td>{{ error }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {{ form.password2 }}
                                 <div class="validation"></div>
                             </div>
 

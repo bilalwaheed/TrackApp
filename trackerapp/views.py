@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
-# Create your views here.
 from django.urls import reverse
 from django.views import generic
 
@@ -25,8 +22,13 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
         all_tickets = TicketTracking.objects.all()
         all_features = Feature.objects.all()
         all_bugs = Bug.objects.all()
+        tickets = TicketTracking.objects.filter(user=self.request.user).count()
+        features = Feature.objects.filter(user=self.request.user).count()
+        bugs = Bug.objects.filter(user=self.request.user).count()
+
         return render(request, self.template_name,
-                      {'all_tickets': all_tickets, 'all_features': all_features, 'all_bugs': all_bugs})
+                      {'all_tickets': all_tickets, 'all_features': all_features, 'all_bugs': all_bugs,
+                       'tickets': tickets, 'features': features, 'bugs': bugs})
 
 
 class LoginView(generic.TemplateView):
@@ -47,6 +49,11 @@ class LoginView(generic.TemplateView):
 
 class RegistrationView(generic.TemplateView):
     template_name = 'register.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = RegisterForm()
+        return self.render_to_response(context)
 
     def post(self, request, **kwargs):
         if request.method == 'POST':
@@ -180,8 +187,6 @@ class TicketView(generic.TemplateView, LoginRequiredMixin):
     def get(self, request, *args, **kwargs):
         all_tickets = TicketTracking.objects.filter(user=self.request.user)
         return render(request, self.template_name, {'all_tickets': all_tickets})
-
-        # return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
 
 class FeatureView(generic.TemplateView, LoginRequiredMixin):
